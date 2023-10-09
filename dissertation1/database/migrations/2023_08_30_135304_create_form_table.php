@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up(): void {
-        Schema::create('cases', function (Blueprint $table) {
+        Schema::create('form', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('assessmentID');
             $table->unsignedBigInteger('tutorID');
@@ -24,6 +24,6 @@ return new class extends Migration {
     }
 
     public function down(): void {
-        Schema::dropIfExists('cases');
+        Schema::dropIfExists('form');
     }
 };

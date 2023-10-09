@@ -10,6 +10,8 @@
             <select class="form-control" name="data_type" id="data_type">
                 <option value="modules">Modules</option>
                 <option value="tutors">Tutors</option>
+                <option value="form">Form</option>
+                <option value="mlos">MLOs</option>
             </select>
         </div>
         <div class="form-group">
@@ -55,4 +57,17 @@
         padding: 10px 20px;
     }
 </style>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 @endsection

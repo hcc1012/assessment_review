@@ -37,40 +37,40 @@ class UserTableSeeder extends Seeder
             
 
             [
-                'name' => 'User1',
-                'username' => 'user1',
-                'email' => 'user1@aston.ac.uk',
-                'password' => Hash::make('user1pw'), 
+                'name' => 'Joe',
+                'username' => 'yuenj',
+                'email' => 'joe@aston.ac.uk',
+                'password' => Hash::make('yuenjpw'), 
             ],
 
             [
-                'name' => 'User2',
-                'username' => 'user2',
-                'email' => 'user2@aston.ac.uk',
-                'password' => Hash::make('user2pw'), 
+                'name' => 'Sylvia',
+                'username' => 'wongs',
+                'email' => 'sylvia@aston.ac.uk',
+                'password' => Hash::make('wongspw'), 
                 
             ],
 
             [
-                'name' => 'User3',
-                'username' => 'user3',
-                'email' => 'user3@aston.ac.uk',
-                'password' => Hash::make('user3pw'), 
+                'name' => 'Nick',
+                'username' => 'nickp',
+                'email' => 'nick@aston.ac.uk',
+                'password' => Hash::make('nickppw'), 
                 
             ],
 
             [
-                'name' => 'User4',
-                'username' => 'user4',
-                'email' => 'user4@aston.ac.uk',
-                'password' => Hash::make('user4pw'), 
+                'name' => 'Hai',
+                'username' => 'haiw',
+                'email' => 'hai@aston.ac.uk',
+                'password' => Hash::make('haiwpw'), 
             ],
 
             [
-                'name' => 'User5',
-                'username' => 'user5',
-                'email' => 'user5@aston.ac.uk',
-                'password' => Hash::make('user5pw'), 
+                'name' => 'Alexandros',
+                'username' => 'Alexandros',
+                'email' => 'alexandros@aston.ac.uk',
+                'password' => Hash::make('alexpw'), 
             ],
 
 

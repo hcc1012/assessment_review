@@ -19,7 +19,6 @@ class ModuleController extends Controller
     }
     
 
-
     
 
     // ... other methods ...
@@ -40,7 +39,6 @@ class ModuleController extends Controller
 
     // Fill the module model with the validated data
     $module->fill($request->all());
-
     // Save the module
     $module->save();
 

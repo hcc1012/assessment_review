@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('mlos', function (Blueprint $table) {
             $table->id();
-            
-            $table->timestamps();
+            $table->string('module_code')->nullable(); 
+            $table->integer('mlo_number')->nullable(); 
+            $table->string('mlo_description')->nullable(); 
         });
     }
 

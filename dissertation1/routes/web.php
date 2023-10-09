@@ -40,8 +40,6 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth','roleID:1'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('/admin/swe_review', [AdminController::class, 'showForm'])->name('admin.show_form');
-    Route::get('/admin/swe_review', [AdminController::class, 'processForm'])->name('admin.processForm');
     Route::get('/admin/upload_csv', [CSVController::class, 'index'])->name('admin.upload_csv');
     Route::post('/admin/upload_csv', [CSVController::class, 'uploadCSV'])->name('admin.uploadCSV');
     Route::get('/admin/view_tutors', [CSVController::class, 'viewTutors'])->name('admin.view_tutors');
@@ -61,10 +59,8 @@ Route::put('/admin/module_information/{module}', [ModuleController::class, 'upda
     ->name('admin.module_information.update');
 
 
-    Route::get('/admin/assign_roles', 'AssignRolesController@showAssignRolesForm')->name('admin.assign_roles');
+    Route::get('/admin/assign_roles', [AssignRolesController::class, 'showAssignRolesForm'])->name('admin.assign_roles');
     Route::post('/admin/assign_roles', [AssignRolesController::class, 'assignRoles'])->name('admin.assign_roles.store');
-    Route::get('/admin/get_tutors/{assessmentId}', 'AssignRolesController@getTutorsForAssessment');
-    
 
 }); 
 

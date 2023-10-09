@@ -20,7 +20,7 @@ class Assessment extends Model
     
     public function modules()
     {
-        return $this->belongsTo(Module::class, 'module_code', 'module_code');
+        return $this->belongsTo(Module::class, 'module_code');
     }
 
 

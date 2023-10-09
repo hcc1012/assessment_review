@@ -23,8 +23,4 @@ class Tutor extends Model
         return $this->hasMany(Assessment::class);
     }
 
-    public function getTutorFullnameAttribute()
-    {
-        return $this->firstname . ' ' . $this->surname;
-    }
 }

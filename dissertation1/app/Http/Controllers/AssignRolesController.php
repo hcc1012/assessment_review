@@ -8,53 +8,42 @@ use App\Models\Assessment;
 use App\Models\User; 
 use App\Models\Tutor; 
 use App\Models\Module; 
-
+use App\Models\CaseModel; 
 
 class AssignRolesController extends Controller
 {
 
-    
     public function showAssignRolesForm()
     {
+        // Retrieve assessments and users from your database tables
         $assessments = Assessment::all();
-    
-        return view('admin.assign_roles', compact('assessments'));
+        $users = User::all();
+
+        return view('admin.assign_roles', compact('assessments', 'users'));
     }
-    
+
     public function assignRoles(Request $request)
     {
-        $assessmentId = $request->input('assessment');
-        $tutorId = $request->input('tutor');
-        $role = $request->input('role');
-    
-        // Retrieve the user based on $tutorId
-        $user = User::find($tutorId);
-    
-        if (!$user) {
-            return redirect()->back()->with('error', 'Tutor not found');
-        }
-    
-        // Update the user's role
-        $user->role = $role;
-        $user->save();
-    
-        return redirect()->back()->with('success', 'Role assigned successfully');
+        // Validate the request data
+        $request->validate([
+            'assessment_id' => 'required|exists:assessments,id',
+            'user_id' => 'required|exists:users,id',
+            'role' => 'required|in:assessor,internal_mod,external_examiner,prog_director',
+            // Add validation rules for other fields as needed
+        ]);
+
+        // Create a new record in the cases table
+        cases::create([
+            'assessmentID' => $request->assessment_id,
+            'tutorID' => null, // If not applicable, set to null
+            'moduleID' => null, // If not applicable, set to null
+            'userID' => $request->user_id,
+            'roleID' => $this->getRoleId($request->role), // Define a function to get role IDs
+        ]);
+
+        return redirect()->route('admin.assign_roles')
+            ->with('success', 'Role assigned successfully');
     }
-    
-    
-    public function getTutorsForAssessment($assessmentId)
-    {
-        $assessment = Assessment::find($assessmentId);
-    
-        $tutors = $assessment->tutors->map(function ($tutor) {
-            return [
-                'id' => $tutor->id,
-                'name' => $tutor->firstname . ' ' . $tutor->surname,
-            ];
-        })->pluck('name', 'id');
-    
-        return response()->json(['tutors' => $tutors]);
-    }
-    
+
 }
 

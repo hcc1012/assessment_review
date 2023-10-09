@@ -7,6 +7,7 @@
     <table class="modules-table">
         <thead>
             <tr>
+                <th>Programme Title</th>
                 <th>Module Code</th>
                 <th>Module Title</th>
                 <th>Module Lead</th>
@@ -17,6 +18,7 @@
         <tbody>
             @foreach ($modules as $module)
             <tr>
+                <td>{{ $module->programme_title }}</td>
                 <td>{{ $module->module_code }}</td>
                 <td>{{ $module->module_title }}</td>
                 <td>{{ $module->module_lead }}</td>

@@ -10,7 +10,7 @@
 
 
             @csrf
-            @method('PUT') <!-- Use the PUT method for updating the module -->
+            @method('PUT') 
 
             <div class="form-group">
                 <label for="module_code">Module Code:</label>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label for="module_lead">Module Leader:</label>
-                <input type="text" id="module_lead" name="module_lead" value="{{ $module->module_leader }}" required>
+                <input type="text" id="module_lead" name="module_lead" value="{{ $module->module_lead }}" required>
             </div>
             <div class="form-group">
                 <label for="level">Level:</label>
@@ -52,7 +52,7 @@
 
             <!-- Include MLO fields and KSB fields here as you did before -->
 
-            <button type="submit">Update</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
 

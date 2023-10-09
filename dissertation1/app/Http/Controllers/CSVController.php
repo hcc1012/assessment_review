@@ -7,6 +7,7 @@ use League\Csv\Reader;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Tutor;
+use App\Models\Mlos;
 
 
 class CSVController extends Controller
@@ -26,7 +27,7 @@ class CSVController extends Controller
     public function uploadCSV(Request $request)
     {
         $request->validate([
-            'data_type' => 'required|in:modules,tutors',
+            'data_type' => 'required|in:modules,tutors,mlos',
             'csv_file' => 'required|file|mimes:csv,txt',
         ]);
     
@@ -35,10 +36,22 @@ class CSVController extends Controller
             $data = array_map('str_getcsv', file($path));
     
             // Define the model class based on data_type
-            $modelClass = ($request->data_type === 'modules') ? Module::class : Tutor::class;
-    
-            // Define the columns to fill based on data_type
-            $fillableColumns = ($request->data_type === 'modules') ? ['module_code', 'module_title', 'module_lead', 'level', 'credits'] : ['username', 'surname', 'firstname', 'email'];
+            if ($request->data_type === 'modules') {
+                $modelClass = Module::class;
+            } elseif ($request->data_type === 'tutors') {
+                $modelClass = Tutor::class;
+            } elseif ($request->data_type === 'mlos') {
+                $modelClass = Mlos::class;
+            }
+
+            if ($request->data_type === 'modules') {
+                $fillableColumns = ['programme_title', 'module_code', 'module_title', 'module_lead', 'level', 'credits'];
+            } elseif ($request->data_type === 'tutors') {
+                $fillableColumns = ['username', 'surname', 'firstname', 'email'];
+            } elseif ($request->data_type === 'mlos') {
+                $fillableColumns = ['module_code', 'mlo_number', 'mlo_description'];
+            }
+   
     
             // Skip the first row (header) of the CSV
             array_shift($data);
@@ -53,7 +66,7 @@ class CSVController extends Controller
     
         return redirect()->back()->with('error', 'Unable to upload CSV file.');
     }
-    
+
 
     public function viewTutors()
 {
