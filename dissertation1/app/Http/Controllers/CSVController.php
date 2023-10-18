@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use League\Csv\Reader;
 use Illuminate\Http\Request;
 use App\Models\Module;
-use App\Models\Tutor;
+use App\Models\User;
 use App\Models\Mlos;
 use App\Models\Programme;
 use App\Models\Assessment;
@@ -17,19 +17,18 @@ class CSVController extends Controller
   
     
 
-    public function index()
+    public function viewModuleCSV()
     {
 
-    
-        return view('admin.upload_csv');
+        return view('admin.module_csv');
     }
     
     
     
-    public function uploadCSV(Request $request)
+    public function moduleCSV(Request $request)
     {
         $request->validate([
-            'data_type' => 'required|in:modules,tutors,mlos,programmes,assessments',
+            'data_type' => 'required|in:modules,users,mlos,programmes,assessments',
             'csv_file' => 'required|file|mimes:csv,txt',
         ]);
     
@@ -43,7 +42,7 @@ class CSVController extends Controller
             // Define the model class based on data_type
             if ($request->data_type === 'modules') {
                 $modelClass = Module::class;
-            } elseif ($request->data_type === 'tutors') {
+            } elseif ($request->data_type === 'users') {
                 $modelClass = Tutor::class;
             } elseif ($request->data_type === 'mlos') {
                 $modelClass = Mlos::class;
@@ -56,8 +55,8 @@ class CSVController extends Controller
             // Define $fillableColumns based on data_type (adjust this as per your CSV structure)
             if ($request->data_type === 'modules') {
                 $fillableColumns = ['programme_title', 'module_code', 'module_title', 'module_lead', 'level', 'credits'];
-            } elseif ($request->data_type === 'tutors') {
-                $fillableColumns = ['username', 'surname', 'firstname', 'email'];
+            } elseif ($request->data_type === 'users') {
+                $fillableColumns = ['username', 'name', 'email', 'password'];
             } elseif ($request->data_type === 'mlos') {
                 $fillableColumns = ['module_code', 'mlo_number', 'mlo_description'];
             }elseif ($request->data_type === 'programmes') {

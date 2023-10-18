@@ -28,14 +28,14 @@ return new class extends Migration
             $table->integer('grade_70_79_number');
             $table->integer('grade_80_89_number');
             $table->integer('grade_90_number');
-            $table->string('marker_commentary');
+            $table->text('marker_commentary');
 
-            $table->string('mnf_int_comment');
-            $table->string('mnf_int_issue');
+            $table->text('mnf_int_comment');
+            $table->text('mnf_int_issue');
 
-            $table->string('mnf_int_issue_solution');
+            $table->text('mnf_int_issue_solution');
 
-            $table->string('mnf_ext_comment');
+            $table->text('mnf_ext_comment');
 
 
             $table->boolean('mnf_int_confirmation');
@@ -45,7 +45,8 @@ return new class extends Migration
             $table->date('mnf_ext_date');
 
             $table->boolean('mnf_director_confirmation');
-            $table->date('mnf_director_date');
+
+            $table->boolean('mnf_status') ->default(false);;
 
             $table->timestamps();
         });

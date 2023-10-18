@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('mlos', function (Blueprint $table) {
             $table->id();
-            $table->string('module_code')->nullable(); 
+            $table->unsignedBigInteger('moduleID'); 
+            $table->unsignedBigInteger('assessmentID'); 
             $table->integer('mlo_number')->nullable(); 
-            $table->string('mlo_description')->nullable(); 
+            $table->text('mlo_description')->nullable(); 
+
+            $table->foreign('moduleID')->references('id')->on('modules')->onDelete('cascade');
+            $table->foreign('assessmentID')->references('id')->on('assessments')->onDelete('cascade');
         });
     }
 

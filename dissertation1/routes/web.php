@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ModuleController;
-use App\Http\Controllers\EditController;
+use App\Http\Controllers\ModuleCRUDController;
 use App\Http\Controllers\CSVController;
 use App\Http\Controllers\AssignRolesController;
 use App\Http\Controllers\UserController;
@@ -43,16 +43,18 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth','roleID:1'])->group(function(){
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
     Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
-    Route::get('/admin/upload_csv', [CSVController::class, 'index'])->name('admin.upload_csv');
-    Route::post('/admin/upload_csv', [CSVController::class, 'uploadCSV'])->name('admin.uploadCSV');
+    Route::get('/admin/module_csv', [ModuleCRUDController::class, 'viewModuleCSV'])->name('admin.module_csv');
+    Route::post('/admin/module_csv', [ModuleCRUDController::class, 'moduleCSV'])->name('admin.moduleCSV');
     Route::get('/admin/view_tutors', [CSVController::class, 'viewTutors'])->name('admin.view_tutors');
-    Route::get('/admin/view_modules', [CSVController::class, 'viewModules'])->name('admin.view_modules');
+    Route::get('/admin/view_modules', [ModuleCRUDController::class, 'viewModule'])->name('admin.view_modules');
 
-    Route::get('/admin/create_modules', [EditController::class, 'createModule'])->name('admin.create_modules');
-    Route::post('/admin/create_modules', [EditController::class, 'storeModule'])->name('admin.store_modules');
-    Route::get('/admin/edit_modules/{modules}', [EditController::class, 'editModule'])->name('admin.edit_modules');
-    Route::put('/admin/edit_modules/{modules}', [EditController::class, 'updateModule'])->name('admin.update_modules');
-    Route::delete('/admin/delete_modules/{modules}', [EditController::class, 'deleteModule'])->name('admin.delete_modules');
+    Route::get('/admin/create_modules', [ModuleCRUDController::class, 'createModule'])->name('admin.create_modules');
+    Route::post('/admin/create_modules', [ModuleCRUDController::class, 'storeModule'])->name('admin.store_modules');
+    Route::get('/admin/edit_modules/{id}', [ModuleCRUDController::class, 'editModule'])->name('admin.edit_modules');
+    Route::put('/admin/edit_modules/{id}', [ModuleCRUDController::class, 'updateModule'])->name('admin.update_modules');
+
+    Route::delete('/admin/delete_modules/{id}', [ModuleCRUDController::class, 'deleteModules'])->name('admin.delete_modules');
+    
 
 
     Route::get('/admin/module_information/{projectId}', [ModuleController::class, 'showForm'])

@@ -36,54 +36,12 @@ class UserTableSeeder extends Seeder
                 'password' => Hash::make('adminpw'), 
             ],
 
-            
-
-            [
-                'name' => 'Joe',
-                'username' => 'yuenj',
-                'email' => 'joe@aston.ac.uk',
-                'password' => Hash::make('yuenjpw'), 
-            ],
-
-            [
-                'name' => 'Sylvia',
-                'username' => 'wongs',
-                'email' => 'sylvia@aston.ac.uk',
-                'password' => Hash::make('wongspw'), 
-                
-            ],
-
-            [
-                'name' => 'Nick',
-                'username' => 'nickp',
-                'email' => 'nick@aston.ac.uk',
-                'password' => Hash::make('nickppw'), 
-                
-            ],
-
-            [
-                'name' => 'Hai',
-                'username' => 'haiw',
-                'email' => 'hai@aston.ac.uk',
-                'password' => Hash::make('haiwpw'), 
-            ],
-
-            [
-                'name' => 'Alexandros',
-                'username' => 'alexandros',
-                'email' => 'alexandros@aston.ac.uk',
-                'password' => Hash::make('alexpw'), 
-            ],
-
 
 
         ]);
 
         DB::table('role_user')->insert([
             ['userID' => 1, 'roleID' => 1],
-        ]);
-        DB::table('role_user')->insert([
-            ['userID' => 2, 'roleID' => 2],
         ]);
 
 

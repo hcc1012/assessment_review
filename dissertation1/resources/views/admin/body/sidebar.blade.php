@@ -20,7 +20,7 @@
       </li>
       <li class="nav-item nav-category">Edit data</li>
       <li class="nav-item">
-        <a href="{{ route('admin.upload_csv') }}" class="nav-link">
+        <a href="{{ route('admin.module_csv') }}" class="nav-link">
           <i class="link-icon" data-feather="arrow-up-circle"></i>
           <span class="link-title">Upload CSV</span>
         </a>
@@ -43,18 +43,21 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#create-data" role="button" aria-expanded="false" aria-controls="create-data">
+        <a class="nav-link" data-bs-toggle="collapse" href="#manage-modules" role="button" aria-expanded="false" aria-controls="manage-modules">
           <i class="link-icon" data-feather="file-plus"></i>
-          <span class="link-title">Create data</span>
+          <span class="link-title">Manage Modules</span>
           <i class="link-arrow" data-feather="chevron-down"></i>
         </a>
-        <div class="collapse" id="create-data">
+        <div class="collapse" id="manage-modules">
           <ul class="nav sub-menu">
             <li class="nav-item">
-              <a href="{{ route('admin.view_modules') }}"class="nav-link">Create Tutors</a>
+              <a href="{{ route('admin.module_csv') }}"class="nav-link">Upload CSV</a>
             </li>
             <li class="nav-item">
               <a href="{{ route('admin.create_modules') }}" class="nav-link">Create Modules</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.view_modules') }}" class="nav-link">View and Edit</a>
             </li>
           </ul>
         </div>

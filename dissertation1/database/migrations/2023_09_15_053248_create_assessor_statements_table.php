@@ -16,6 +16,7 @@ return new class extends Migration
             $table->boolean('assessor_statement1');
             $table->boolean('assessor_statement2_1');
             $table->boolean('assessor_statement2_2');
+            $table->boolean('assessor_statement_status') ->default(false);;
             $table->timestamps();
         });
     }

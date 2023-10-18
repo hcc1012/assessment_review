@@ -23,7 +23,7 @@ class ModuleController extends Controller
         return view('admin.module_information', compact('module', 'mloData', 'projectId'));
     }
 
-    // ... other methods ...
+
 
     public function updateModule(Request $request, $projectId)
     {

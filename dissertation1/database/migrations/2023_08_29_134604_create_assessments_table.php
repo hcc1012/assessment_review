@@ -17,9 +17,6 @@ return new class extends Migration
             $table->string('other_deliverables');
             $table->date('issue_date')->nullable();
             $table->date('submission_date')->nullable();
-            $table->date('date_submitted_for_moderation')->nullable();
-            $table->date('date_moderated')->nullable();
-            $table->date('date_form_received')->nullable();
         });
     }
 
