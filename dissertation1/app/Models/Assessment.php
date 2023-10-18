@@ -9,12 +9,17 @@ class Assessment extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = [
-        'assessmentID',
-        'type',
+        'assessment_type',
         'weighting',
-        'moduleID',
-        'assessorID',
+        'assessment_deliverable',
+        'other_deliverables',
+        'issue_date',
+        'submission_date',
+        'date_submitted_for_moderation',
+        'date_moderated',
+        'date_form_received'
     ];
 
     
@@ -24,11 +29,6 @@ class Assessment extends Model
     }
 
 
-    public function tutors()
-    {
-        return $this->belongsToMany(Tutor::class, 'assessment_tutor', 'assessment_id', 'tutor_id');
-
-    }
 
     public function users()
     {

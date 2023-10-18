@@ -13,16 +13,18 @@ class UserTableSeeder extends Seeder
      * Run the database seeds.
      */
 
+     
     
     public function run(): void {
 
-        
+
      DB::table('roles')->insert([
         ['role_name' => 'system admin'],
         ['role_name' => 'assessor'],
         ['role_name' => 'internal moderator'],
         ['role_name' => 'external examiner'],
         ['role_name' => 'programme director'],
+        ['role_name' => 'user'],
     ]);
         DB::table('users')->insert([
             
@@ -68,7 +70,7 @@ class UserTableSeeder extends Seeder
 
             [
                 'name' => 'Alexandros',
-                'username' => 'Alexandros',
+                'username' => 'alexandros',
                 'email' => 'alexandros@aston.ac.uk',
                 'password' => Hash::make('alexpw'), 
             ],
@@ -80,7 +82,11 @@ class UserTableSeeder extends Seeder
         DB::table('role_user')->insert([
             ['userID' => 1, 'roleID' => 1],
         ]);
-        
+        DB::table('role_user')->insert([
+            ['userID' => 2, 'roleID' => 2],
+        ]);
+
+
     }
 }
 

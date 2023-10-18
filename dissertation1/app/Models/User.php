@@ -48,11 +48,15 @@ public function assessments()
 
 public function modules()
 {
-    return $this->belongsToMany(Module::class);
+    return $this->belongsToMany(Module::class, 'projects', 'userID', 'moduleID');
 }
 public function roles()
 {
     return $this->belongsToMany(Role::class, 'role_user', 'userID', 'roleID');
 }
 
+public function programmes()
+{
+    return $this->belongsToMany(Programme::class, 'projects', 'userID', 'programmeID');
+}
 }

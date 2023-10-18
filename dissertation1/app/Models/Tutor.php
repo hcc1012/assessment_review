@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tutor extends Model
 {
-    protected $fillable = ['username', 'surname', 'firstname', 'email', 'role'];
+    protected $fillable = ['username', 'surname', 'firstname', 'email'];
 
     public $timestamps = false;
 
@@ -23,4 +23,8 @@ class Tutor extends Model
         return $this->hasMany(Assessment::class);
     }
 
+    public function getTutorFullnameAttribute()
+    {
+        return $this->firstname . ' ' . $this->surname;
+    }
 }

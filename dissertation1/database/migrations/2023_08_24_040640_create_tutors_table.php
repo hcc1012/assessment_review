@@ -11,7 +11,7 @@ return new class extends Migration
         {
             Schema::create('tutors', function (Blueprint $table) {
                 $table->id();
-                $table->string('username')->default('')->nullable()->unique(); 
+                $table->string('username')->default('')->nullable(); 
                 $table->string('surname')->default('')->nullable(); 
                 $table->string('firstname')->default('')->nullable(); 
                 $table->string('email')->default('')->nullable(); 

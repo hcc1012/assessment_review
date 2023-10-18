@@ -7,6 +7,9 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EditController;
 use App\Http\Controllers\CSVController;
 use App\Http\Controllers\AssignRolesController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -52,19 +55,53 @@ Route::middleware(['auth','roleID:1'])->group(function(){
     Route::delete('/admin/delete_modules/{modules}', [EditController::class, 'deleteModule'])->name('admin.delete_modules');
 
 
-    Route::get('/admin/module_information/{module}', [ModuleController::class, 'showForm'])
+    Route::get('/admin/module_information/{projectId}', [ModuleController::class, 'showForm'])
     ->name('admin.module_information.show');
 
-Route::put('/admin/module_information/{module}', [ModuleController::class, 'updateModule'])
+Route::put('/admin/module_information/{projectId}', [ModuleController::class, 'updateModule'])
     ->name('admin.module_information.update');
 
 
-    Route::get('/admin/assign_roles', [AssignRolesController::class, 'showAssignRolesForm'])->name('admin.assign_roles');
-    Route::post('/admin/assign_roles', [AssignRolesController::class, 'assignRoles'])->name('admin.assign_roles.store');
+    Route::get('/admin/assessment_information', [AssessmentController::class, 'showForm'])->name('admin.assessment_information.showForm');
+    Route::post('/admin/assessment_information', [AssessmentController::class, 'store'])->name('admin.assessment_information.store');
+    
+
+    Route::get('/admin/review_information', [ReviewController::class, 'showForm'])->name('admin.review_information.showForm');
+    Route::post('/admin/review_information', [ReviewController::class, 'store'])->name('admin.review_information.store');
+    
+    Route::get('/admin/assign_roles', [AssignRolesController::class, 'showForm'])->name('admin.assign_roles');
+    Route::post('/admin/assign_roles', [AssignRolesController::class, 'submitForm'])->name('admin.assign_roles.submit');
+    
+    
 
 }); 
 
 
+Route::middleware(['auth','roleID:2'])->group(function(){
+    Route::get('/user/dashboard1', [UserController::class, 'UserDashboard'])->name('user.dashboard1');
+    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+}); 
+
+
+Route::middleware(['auth','roleID:3'])->group(function(){
+    Route::get('/user/dashboard', [UserController::class, 'UserDashboard'])->name('user.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+}); 
+
+
+Route::middleware(['auth','roleID:4'])->group(function(){
+    Route::get('/user/dashboard', [UserController::class, 'UserDashboard'])->name('user.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+}); 
+
+
+Route::middleware(['auth','roleID:5'])->group(function(){
+    Route::get('/user/dashboard', [UserController::class, 'UserDashboard'])->name('user.dashboard');
+    Route::get('/admin/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
+
+}); 
 
 
 

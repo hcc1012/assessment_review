@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Tutor;
 use App\Models\Mlos;
+use App\Models\Programme;
+use App\Models\Assessment;
 
 
 class CSVController extends Controller
@@ -27,13 +29,16 @@ class CSVController extends Controller
     public function uploadCSV(Request $request)
     {
         $request->validate([
-            'data_type' => 'required|in:modules,tutors,mlos',
+            'data_type' => 'required|in:modules,tutors,mlos,programmes,assessments',
             'csv_file' => 'required|file|mimes:csv,txt',
         ]);
     
         if ($request->hasFile('csv_file')) {
             $path = $request->file('csv_file')->getRealPath();
             $data = array_map('str_getcsv', file($path));
+    
+            // Skip the first row (header) of the CSV
+            $header = array_shift($data);
     
             // Define the model class based on data_type
             if ($request->data_type === 'modules') {
@@ -42,22 +47,37 @@ class CSVController extends Controller
                 $modelClass = Tutor::class;
             } elseif ($request->data_type === 'mlos') {
                 $modelClass = Mlos::class;
+            } elseif ($request->data_type === 'programmes') {
+                $modelClass = Programme::class;
+            }elseif ($request->data_type === 'assessments') {
+                $modelClass = Assessment::class;
             }
-
+    
+            // Define $fillableColumns based on data_type (adjust this as per your CSV structure)
             if ($request->data_type === 'modules') {
                 $fillableColumns = ['programme_title', 'module_code', 'module_title', 'module_lead', 'level', 'credits'];
             } elseif ($request->data_type === 'tutors') {
                 $fillableColumns = ['username', 'surname', 'firstname', 'email'];
             } elseif ($request->data_type === 'mlos') {
                 $fillableColumns = ['module_code', 'mlo_number', 'mlo_description'];
+            }elseif ($request->data_type === 'programmes') {
+                $fillableColumns = ['programme_title','programme_director','deputy_programme_director'];
+            }elseif ($request->data_type === 'assessments') {
+                $fillableColumns = ['assessment_type','weighting','assessment_deliverable','other_deliverables','issue_date','submission_date','date_submitted_for_moderation','date_moderated','date_form_received'];
             }
-   
-    
-            // Skip the first row (header) of the CSV
-            array_shift($data);
+            
+
     
             foreach ($data as $row) {
                 $attributes = array_combine($fillableColumns, $row);
+    
+                // Check for date columns and set them to null if they are empty
+                foreach (['issue_date', 'submission_date', 'date_submitted_for_moderation', 'date_moderated', 'date_form_received'] as $dateColumn) {
+                    if (isset($attributes[$dateColumn]) && empty($attributes[$dateColumn])) {
+                        $attributes[$dateColumn] = null;
+                    }
+                }
+    
                 $modelClass::create($attributes);
             }
     
@@ -66,7 +86,7 @@ class CSVController extends Controller
     
         return redirect()->back()->with('error', 'Unable to upload CSV file.');
     }
-
+    
 
     public function viewTutors()
 {

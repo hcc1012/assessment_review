@@ -27,8 +27,11 @@ class Module extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'projects', 'programmeID', 'user_id');
     }
-
+    public function programmes()
+    {
+        return $this->belongsTo(Programme::class);
+    }
 
 }

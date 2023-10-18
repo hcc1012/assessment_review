@@ -10,8 +10,9 @@
             <select class="form-control" name="data_type" id="data_type">
                 <option value="modules">Modules</option>
                 <option value="tutors">Tutors</option>
-                <option value="form">Form</option>
+                <option value="programmes">Programmes</option>
                 <option value="mlos">MLOs</option>
+                <option value="assessments">Assessments</option>
             </select>
         </div>
         <div class="form-group">
