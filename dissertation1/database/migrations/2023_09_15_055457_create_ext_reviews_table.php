@@ -13,19 +13,19 @@ return new class extends Migration
     {
         Schema::create('ext_reviews', function (Blueprint $table) {
             $table->id();
-            $table->boolean('ext_review1');$table->string('ext_review1_comment');
-            $table->boolean('ext_review2');$table->string('ext_review2_comment');
-            $table->boolean('ext_review3');$table->string('ext_review3_comment');
-            $table->string('ext_general_comment');
+            $table->boolean('ext_review1');$table->text('ext_review1_comment');
+            $table->boolean('ext_review2');$table->text('ext_review2_comment');
+            $table->boolean('ext_review3');$table->text('ext_review3_comment');
+            $table->text('ext_general_comment');
             $table->boolean('ext_review4');
             $table->date('ext_date_moderated');
 
-            $table->string('ext_assesor_response');
+            $table->text('ext_assesor_response');
             $table->date('ext_assessor_date');
-
-            $table->boolean('ext_director_confirmation');
+            
             $table->date('ext_director_date');
 
+            $table->boolean('ext_review_status') ->default(false);
             $table->timestamps();
         });
     }

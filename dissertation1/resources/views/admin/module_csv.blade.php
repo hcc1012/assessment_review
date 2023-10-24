@@ -3,13 +3,12 @@
 <div class="container">
     <br><br><br><br><br><br><br><br>
     <h1>Upload CSV</h1>
-    <form action="{{ route('admin.upload_csv') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.module_csv') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="data_type">Select Data Type:</label>
             <select class="form-control" name="data_type" id="data_type">
                 <option value="modules">Modules</option>
-                <option value="tutors">Tutors</option>
             </select>
         </div>
         <div class="form-group">
@@ -55,4 +54,17 @@
         padding: 10px 20px;
     }
 </style>
+
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 @endsection

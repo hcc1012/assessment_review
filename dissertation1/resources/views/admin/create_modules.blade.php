@@ -1,6 +1,17 @@
 @extends('admin.admin_dashboard')
 @section('admin')
 <br><br>
+
+@if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 <div class="module-form-container">
     <h1>Create Module</h1>
     <br>
@@ -10,6 +21,9 @@
             <div class="form-group">
                 <label for="{{ $dataType }}">{{ $dataType }}:</label>
                 <input type="text" name="{{ $dataType }}" id="{{ $dataType }}" class="form-control" required>
+                @error($dataType)
+                <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
         @endforeach
         <div class="form-group text-right"> <!-- Added the text-right class -->

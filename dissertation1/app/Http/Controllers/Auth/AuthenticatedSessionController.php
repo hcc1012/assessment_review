@@ -33,13 +33,13 @@ class AuthenticatedSessionController extends Controller
         if ($request->user()->roles->contains('id', 1)){
             $url='admin/dashboard';
         }elseif($request->user()->roles->contains('id', 2)){
-            $url='user/dashboard';
+            $url='user/dashboard1';
         }elseif($request->user()->roles->contains('id', 3)){
-            $url='user/dashboard';
+            $url='user/dashboard1';
         }elseif($request->user()->roles->contains('id', 4)){
-            $url='user/dashboard';
+            $url='user/dashboard1';
         }elseif($request->user()->roles->contains('id', 5)){
-            $url='user/dashboard';
+            $url='user/dashboard1';
         }
 
         return redirect()->intended($url);

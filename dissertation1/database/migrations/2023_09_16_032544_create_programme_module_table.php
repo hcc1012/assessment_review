@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mlos', function (Blueprint $table) {
+        Schema::create('programme_module', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('moduleID'); 
-            $table->unsignedBigInteger('assessmentID'); 
-            $table->integer('mlo_number')->nullable(); 
-            $table->text('mlo_description')->nullable(); 
 
+            $table->unsignedBigInteger('programmeID'); 
+            $table->unsignedBigInteger('moduleID'); 
+
+            $table->foreign('programmeID')->references('id')->on('programmes')->onDelete('cascade');
             $table->foreign('moduleID')->references('id')->on('modules')->onDelete('cascade');
-            $table->foreign('assessmentID')->references('id')->on('assessments')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mlos');
+        Schema::dropIfExists('programme_module');
     }
 };

@@ -1,36 +1,54 @@
 @extends('admin.admin_dashboard')
+
 @section('admin')
 <br><br><br><br>
 <div class="container">
-    <h2>Assign Roles</h2>
-    <form action="{{ route('admin.assign_roles.store') }}" method="POST">
+    <h1>Assign Roles</h1>
+    <form method="POST" action="{{ route('admin.assign_roles.submit') }}">
         @csrf
+
+        <!-- Select Program -->
         <div class="form-group">
-            <label for="assessment">Select Assessment:</label>
-            <select name="assessment" id="assessment" class="form-control">
-                @foreach ($assessments as $assessment)
-                    <option value="{{ $assessment->id }}">{{ $assessment->name }}</option>
+            <label for="programmeID">Select Programme:</label>
+            <select name="programmeID" class="form-control" required>
+                @foreach ($programmes as $programme)
+                    <option value="{{ $programme->id }}">{{ $programme->programme_title }}</option>
                 @endforeach
             </select>
         </div>
+
+        <!-- Select Module -->
         <div class="form-group">
-            <label for="tutor">Select Tutor:</label>
-            <select name="tutor" id="tutor" class="form-control">
+            <label for="moduleID">Select Module:</label>
+            <select name="moduleID" class="form-control" required>
+                @foreach ($modules as $module)
+                    <option value="{{ $module->id }}">{{ $module->module_title }}</option>
+                @endforeach
             </select>
         </div>
-        <div class="form-group">
-    <label for="role">Select Role:</label>
-    <select name="role" id="role" class="form-control">
-        <option value="admin">Admin</option>
-        <option value="assessor">Assessor</option>
-        <option value="internal moderator">Internal Moderator</option>
-        <option value="external examiner">External Examiner</option>
-        <option value="programme director">Programme Director</option>
-        <!-- Add more roles as needed -->
-    </select>
-</div>
 
-        <button type="submit" class="btn btn-primary">Assign Role</button>
+        <!-- User Role Assignment (repeat as needed) -->
+        <div class="form-group">
+            <label for="userID">Select User:</label>
+            <select name="userID" class="form-control" required>
+                @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->username }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Select Role (if not pre-determined) -->
+        <div class="form-group">
+            <label for="roleID">Select Role:</label>
+            <select name="roleID" class="form-control" required>
+                @foreach ($roles as $role)
+                    <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Assign Roles</button>
     </form>
 </div>
 @endsection

@@ -8,53 +8,42 @@ use App\Models\Assessment;
 use App\Models\User; 
 use App\Models\Tutor; 
 use App\Models\Module; 
-
+use App\Models\Role; 
+use App\Models\Programme; 
 
 class AssignRolesController extends Controller
 {
 
-    
-    public function showAssignRolesForm()
+    public function showForm()
     {
-        $assessments = Assessment::all();
-    
-        return view('admin.assign_roles', compact('assessments'));
+        $programmes = Programme::all();
+        $modules = Module::all();
+        $users = User::all();
+        $roles = Role::all();
+
+        return view('admin.assign_roles', compact('programmes', 'modules', 'users', 'roles'));
     }
+
     
-    public function assignRoles(Request $request)
+
+    public function submitForm(Request $request)
     {
-        $assessmentId = $request->input('assessment');
-        $tutorId = $request->input('tutor');
-        $role = $request->input('role');
-    
-        // Retrieve the user based on $tutorId
-        $user = User::find($tutorId);
-    
-        if (!$user) {
-            return redirect()->back()->with('error', 'Tutor not found');
-        }
-    
-        // Update the user's role
-        $user->role = $role;
-        $user->save();
-    
-        return redirect()->back()->with('success', 'Role assigned successfully');
+        $userId = $request->input('userID');
+        $programmeId = $request->input('programmeID');
+        $roleId = $request->input('roleID');
+        $moduleId = $request->input('moduleID');
+
+        $user = User::find($userId);
+        $programme = Programme::find($programmeId);
+        $module = Module::find($moduleId);
+        $role = Role::find($roleId);
+
+        $user->roles()->attach($role->id);
+        $user->modules()->sync([$module->id => ['programmeID' => $programme->id, 'roleID' => $role->id]]);
+
+        
+
+        return redirect()->route('admin.assign_roles')->with('success', 'Form submitted successfully');
     }
-    
-    
-    public function getTutorsForAssessment($assessmentId)
-    {
-        $assessment = Assessment::find($assessmentId);
-    
-        $tutors = $assessment->tutors->map(function ($tutor) {
-            return [
-                'id' => $tutor->id,
-                'name' => $tutor->firstname . ' ' . $tutor->surname,
-            ];
-        })->pluck('name', 'id');
-    
-        return response()->json(['tutors' => $tutors]);
-    }
-    
 }
 

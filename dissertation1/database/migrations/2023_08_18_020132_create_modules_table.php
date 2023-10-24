@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
+            $table->string('programme_title')->nullable(); 
             $table->string('module_code')->nullable();
             $table->string('module_title')->nullable();
             $table->string('module_lead')->nullable();
             $table->integer('level')->nullable();
             $table->integer('credits');
-            $table->timestamps();
         });
     }
 

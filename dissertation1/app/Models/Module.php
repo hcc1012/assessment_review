@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
 
+    public $timestamps = false;
 
 
-    protected $fillable = ['module_code', 'module_title', 'module_lead', 'level', 'credits'];
+    protected $fillable = ['programme_title','module_code', 'module_title', 'module_lead', 'level', 'credits'];
 
 
     // Define the many-to-many relationship with tutors
@@ -26,7 +27,11 @@ class Module extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'projects', 'programmeID', 'user_id');
+    }
+    public function programmes()
+    {
+        return $this->belongsTo(Programme::class);
     }
 
 }

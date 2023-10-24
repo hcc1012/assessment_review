@@ -15,11 +15,8 @@ return new class extends Migration
             $table->integer('weighting');
             $table->enum('assessment_deliverable', ['presenatation', 'coding assignment', 'essay']);
             $table->string('other_deliverables');
-            $table->date('issue_date');
-            $table->date('submission_date');
-            $table->date('date_submitted_for_moderation');
-            $table->date('date_moderated');
-            $table->date('date_form_received');
+            $table->date('issue_date')->nullable();
+            $table->date('submission_date')->nullable();
         });
     }
 
